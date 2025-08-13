@@ -41,7 +41,7 @@ BEGIN
 			cst_key, 
 			cst_firstname, 
 			cst_lastname, 
-			cst_marital_status, 
+			cst_material_status, 
 			cst_gndr,
 			cst_create_date
 		)
@@ -51,10 +51,10 @@ BEGIN
 			TRIM(cst_firstname) AS cst_firstname,
 			TRIM(cst_lastname) AS cst_lastname,
 			CASE 
-				WHEN UPPER(TRIM(cst_marital_status)) = 'S' THEN 'Single'
-				WHEN UPPER(TRIM(cst_marital_status)) = 'M' THEN 'Married'
+				WHEN UPPER(TRIM(cst_material_status)) = 'S' THEN 'Single'
+				WHEN UPPER(TRIM(cst_material_status)) = 'M' THEN 'Married'
 				ELSE 'n/a'
-			END AS cst_marital_status, -- Normalize marital status values to readable format
+			END AS cst_material_status, -- Normalize marital status values to readable format
 			CASE 
 				WHEN UPPER(TRIM(cst_gndr)) = 'F' THEN 'Female'
 				WHEN UPPER(TRIM(cst_gndr)) = 'M' THEN 'Male'
@@ -219,7 +219,7 @@ BEGIN
 		PRINT '>> Truncating Table: silver.erp_px_cat_g1v2';
 		TRUNCATE TABLE silver.erp_px_cat_g1v2;
 		PRINT '>> Inserting Data Into: silver.erp_px_cat_g1v2';
-		INSERT INTO silver.erp_px_cat_g1v2 (
+		INSERT INTO silver.erp_px_cat_g1v2(
 			id,
 			cat,
 			subcat,
@@ -230,7 +230,7 @@ BEGIN
 			cat,
 			subcat,
 			maintenance
-		FROM bronze.erp_px_cat_g1v2;
+		FROM bronze.erp_px_cate_g1v2;
 		SET @end_time = GETDATE();
 		PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
         PRINT '>> -------------';

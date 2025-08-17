@@ -30,6 +30,3 @@ This project involves:
 - Data Modeling  
 - Data Analytics  
 ---
-
-
-6. 

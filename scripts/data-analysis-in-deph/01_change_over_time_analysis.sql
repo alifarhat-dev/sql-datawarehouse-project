@@ -76,7 +76,7 @@ GROUP BY CASE
         ELSE '4'
     END;
 
---Average cost by month 
+--Average cost by year 
 SELECT DATETRUNC(YEAR,a.order_date) as Month,AVG(b.cost*a.quantity) as average_cost
 FROM gold.fact_sales a
 JOIN gold.dim_products b

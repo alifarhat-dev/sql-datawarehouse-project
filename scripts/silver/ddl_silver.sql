@@ -14,7 +14,7 @@ IF OBJECT_ID('silver.crm_cust_info', 'U') IS NOT NULL
 GO
 
 CREATE TABLE silver.crm_cust_info (
-    cst_id             INT,
+    cst_id             INT PRIMARY KEY,
     cst_key            NVARCHAR(50),
     cst_firstname      NVARCHAR(50),
     cst_lastname       NVARCHAR(50),
@@ -30,7 +30,7 @@ IF OBJECT_ID('silver.crm_prd_info', 'U') IS NOT NULL
 GO
 
 CREATE TABLE silver.crm_prd_info (
-    prd_id          INT,
+    prd_id          INT PRIMARY KEY,
     cat_id          NVARCHAR(50),
     prd_key         NVARCHAR(50),
     prd_nm          NVARCHAR(50),
@@ -56,7 +56,11 @@ CREATE TABLE silver.crm_sales_details (
     sls_sales       INT,
     sls_quantity    INT,
     sls_price       INT,
-    dwh_create_date DATETIME2 DEFAULT GETDATE()
+    dwh_create_date DATETIME2 DEFAULT GETDATE(),
+	CONSTRAINTS FK_sales_customers
+	FOREIGN KEY (sls_cust_id) REFERENCES silver.crm_cust_info,
+	CONSTRAINTS FK_sales_products
+	FOREIGN KEY (sls_prd_key) REFERENCES silver.crm_prd_info
 );
 GO
 
@@ -65,7 +69,7 @@ IF OBJECT_ID('silver.erp_loc_a101', 'U') IS NOT NULL
 GO
 
 CREATE TABLE silver.erp_loc_a101 (
-    cid             NVARCHAR(50),
+    cid             NVARCHAR(50) PRIMARY KEY,
     cntry           NVARCHAR(50),
     dwh_create_date DATETIME2 DEFAULT GETDATE()
 );
@@ -76,7 +80,7 @@ IF OBJECT_ID('silver.erp_cust_az12', 'U') IS NOT NULL
 GO
 
 CREATE TABLE silver.erp_cust_az12 (
-    cid             NVARCHAR(50),
+    cid             NVARCHAR(50) PRIMARY KEY,
     bdate           DATE,
     gen             NVARCHAR(50),
     dwh_create_date DATETIME2 DEFAULT GETDATE()
@@ -88,7 +92,7 @@ IF OBJECT_ID('silver.erp_px_cat_g1v2', 'U') IS NOT NULL
 GO
 
 CREATE TABLE silver.erp_px_cat_g1v2 (
-    id              NVARCHAR(50),
+    id              NVARCHAR(50) PRIMARY KEY,
     cat             NVARCHAR(50),
     subcat          NVARCHAR(50),
     maintenance     NVARCHAR(50),
